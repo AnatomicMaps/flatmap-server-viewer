@@ -1,4 +1,4 @@
-import { MapManager } from '@dbrnz/flatmap-viewer';
+import { MapManager } from '@abi-software/flatmap-viewer';
 
 const DEBUG = false;
 const MINIMAP = false; // { width: '10%', background: '#FCC' };
