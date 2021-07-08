@@ -4,7 +4,11 @@ const DEBUG = false;
 const MINIMAP = false; // { width: '10%', background: '#FCC' };
 
 const url = new URL(window.location.href);
-const MAP_ENDPOINT = url.origin;
+const parts = url.pathname.split('/');
+const MAP_ENDPOINT = url.origin
+                   + (parts.slice(0, (parts[parts.length - 1] === '') ? -2 : -1)
+                      .concat([''])
+                      .join('/'));
 
 //==============================================================================
 
