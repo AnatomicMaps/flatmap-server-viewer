@@ -1,6 +1,6 @@
 {
   "name": "viewer",
-  "version": "2.1.0-beta.10",
+  "version": "2.1.0-beta.12",
   "description": "Integrated flatmap viewer",
   "repository": "https://github.com/dbrnz/flatmap-server-viewer.git",
   "main": "index.js",
