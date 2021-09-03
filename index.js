@@ -29,10 +29,13 @@ window.onload = async function() {
 
     const maps = await mapManager.allMaps();
 
+    const viewerUrl = new URL(document.URL);
+    const viewMapId = viewerUrl.searchParams.get('map');
+    let mapId = null;
     const options = [];
     const selector = document.getElementById('map-selector');
     for (const map of Object.values(maps)) {
-        const text = [ map.id ];
+        const text = [];
         if ('describes' in map) {
             text.push(map.describes);
         }
@@ -41,8 +44,15 @@ window.onload = async function() {
             text.push(map.created);
             sortKey = map.created;
         }
+        text.push(map.id);
+
+        let selected = '';
+        if (map.id === viewMapId) {
+            mapId = map.id;
+            selected = 'selected';
+        }
         options.push({
-            option: `<option value="${map.id}">${text.join(' -- ')}</option>`,
+            option: `<option value="${map.id}" ${selected}>${text.join(' -- ')}</option>`,
             sortKey: sortKey
         });
     }
@@ -50,6 +60,11 @@ window.onload = async function() {
                                               : (a.sortKey > b.sortKey) ? -1
                                               : 0)
                                 .map(o => o.option).join('');
+    // Do we show an error page if viewMapId can't be found??
+    if (mapId === null) {
+        mapId = selector.options[0].value;
+        selector.options[0].selected = true;
+    }
 
     let currentMap = null;
 
@@ -80,6 +95,10 @@ window.onload = async function() {
         if (currentMap !== null) {
             currentMap.close();
         }
+
+        viewerUrl.searchParams.set('map', id);
+        window.history.pushState('data', document.title, viewerUrl);
+
         mapManager.loadMap(id, 'map-canvas', (event, options) => callback(event, options), {
             tooltips: true,
             background: '#EEF',
@@ -100,6 +119,5 @@ window.onload = async function() {
 
     selector.onchange = (e) => loadMap(e.target.value);
 
-    selector.options[0].selected = true;
-    loadMap(selector.options[0].value);
+    loadMap(mapId);
 };
