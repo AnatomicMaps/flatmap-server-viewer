@@ -1,6 +1,6 @@
 {
   "name": "viewer",
-  "version": "2.2.1-beta.3",
+  "version": "2.2.1-beta.4",
   "description": "Integrated flatmap viewer",
   "repository": "https://github.com/dbrnz/flatmap-server-viewer.git",
   "main": "index.js",
@@ -11,7 +11,7 @@
   "author": "David Brooks",
   "license": "Apache-2.0",
   "dependencies": {
-    "@abi-software/flatmap-viewer": "^2.2.1-beta.3"
+    "@abi-software/flatmap-viewer": "^2.2.1-beta.4"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
